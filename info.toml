@@ -1,8 +1,8 @@
 [meta]
 name = "Example Cosmetics"
-version = "0.1.0"
+version = "0.2.0"
 author = "AnythingGoes"
-description = "Examples for Cosmetic Kit: smiley, morph ball and saw meatball balls, a fruit basket hat and a confetti goal explosion."
+description = "Examples for Cosmetic Kit: smiley, AnythingGoes, morph ball and saw meatball balls, a fruit basket hat and a confetti goal explosion."
 min_host = "0.8.0"
 dependencies = ["cosmetic-kit"]
 

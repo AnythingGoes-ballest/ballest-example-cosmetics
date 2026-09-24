@@ -1,6 +1,8 @@
 # The smiley pack's ball texture: 1024x512 equirectangular (u = around the ball, v = from the top pole to the
 # bottom), yellow with one black smiley face. The face is drawn in the plane touching the ball at its centre (on the
 # equator) and projected onto the sphere, so it is round on the ball rather than stretched like a flat image would be.
+import math
+
 import numpy as np
 from PIL import Image, ImageDraw
 
@@ -51,31 +53,6 @@ for ex in (96, 160):
     g.ellipse([(ex - 13) * k, 70 * k, (ex + 13) * k, 118 * k], fill=(12, 12, 12, 255))
 g.arc([62 * k, 70 * k, 194 * k, 200 * k], start=25, end=155, fill=(12, 12, 12, 255), width=15 * k)
 im.resize((S, S), Image.LANCZOS).save("smiley_preview.png")
-
-# The party cone's tile picture: a striped cone.
-im = Image.new("RGBA", (S * k, S * k), (0, 0, 0, 0))
-g = ImageDraw.Draw(im)
-top, base_y, half = (128 * k, 24 * k), 222 * k, 78 * k
-g.polygon([top, (128 * k - half, base_y), (128 * k + half, base_y)], fill=(150, 150, 158, 255))
-for i, t in enumerate((0.35, 0.6, 0.85)):
-    y = top[1] + (base_y - top[1]) * t
-    w = half * t
-    g.line([(128 * k - w, y), (128 * k + w, y)], fill=(95, 95, 102, 255), width=10 * k)
-g.ellipse([(128 - 12) * k, 12 * k, (128 + 12) * k, 36 * k], fill=(255, 214, 0, 255))
-im.resize((S, S), Image.LANCZOS).save("cone_preview.png")
-
-# The big fire's tile picture: a flame burst.
-import math
-im = Image.new("RGBA", (S * k, S * k), (0, 0, 0, 0))
-g = ImageDraw.Draw(im)
-for radius, colour in ((118, (200, 40, 10, 255)), (92, (245, 110, 20, 255)), (62, (255, 200, 40, 255)), (30, (255, 245, 190, 255))):
-    points = []
-    for i in range(24):
-        a = 2 * math.pi * i / 24
-        r = radius * (1.0 if i % 2 == 0 else 0.62)
-        points.append(((128 + r * math.cos(a)) * k, (128 + r * math.sin(a)) * k))
-    g.polygon(points, fill=colour)
-im.resize((S, S), Image.LANCZOS).save("big_fire_preview.png")
 
 # The plugin's icon: the smiley.
 Image.open("smiley_preview.png").save("icon.png")
@@ -201,3 +178,31 @@ for i in range(70):
     pts = [((cx + px * math.cos(rot) - py * math.sin(rot)) * k, (cy + px * math.sin(rot) + py * math.cos(rot)) * k) for px, py in pts]
     g.polygon(pts, fill=cols[i % len(cols)] + (255,))
 done(im, "confetti_preview.png")
+
+
+# AnythingGoes: the profile photo on one side of the ball (projected like the smiley, so it isn't stretched), fading
+# into the photo's own dark border colour around the rest of the ball.
+photo = np.asarray(Image.open("anythinggoes_profile.jpg").convert("RGB"), float)
+ph, pw = photo.shape[:2]
+edge = np.concatenate([photo[0], photo[-1], photo[:, 0], photo[:, -1]]).mean(axis=0)
+face = direction(np.array(0.625), np.array(0.5))          # the smiley's spot: on the equator
+face_east = np.cross(up, face)
+face_east /= np.linalg.norm(face_east)
+d = direction(uu, vv)
+z = d @ face
+x = (d @ face_east) / np.maximum(z, 1e-6)
+y = (d @ up) / np.maximum(z, 1e-6)
+reach = 1.0                                    # half the photo's width on the tangent plane (45 degrees)
+px = np.clip(((x / reach + 1) / 2 * (pw - 1)).round().astype(int), 0, pw - 1)
+py = np.clip(((1 - y / reach) / 2 * (ph - 1)).round().astype(int), 0, ph - 1)
+radius = np.hypot(x, y) / reach
+inside = np.clip((1.0 - radius) / 0.12, 0, 1) * (z > 0)
+colour = photo[py, px] * inside[..., None] + edge * (1 - inside[..., None])
+Image.fromarray(colour.clip(0, 255).astype(np.uint8)).save("anythinggoes_ball.png")
+
+# Its tile picture: the photo in a circle.
+im = Image.new("RGBA", (S * k, S * k), (0, 0, 0, 0))
+mask = Image.new("L", (S * k, S * k), 0)
+ImageDraw.Draw(mask).ellipse([8 * k, 8 * k, (S - 8) * k, (S - 8) * k], fill=255)
+im.paste(Image.open("anythinggoes_profile.jpg").convert("RGB").resize((S * k, S * k), Image.LANCZOS), (0, 0), mask)
+done(im, "anythinggoes_preview.png")
