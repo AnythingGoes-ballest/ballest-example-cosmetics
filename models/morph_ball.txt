@@ -1,0 +1,27 @@
+# The morph ball's depth: dark armour seams standing out of the ball along its three panel lines (the texture's
+# panels meet there), and eight yellow lights set into dark sockets, one in the middle of each panel.
+# The ball is 50 from its centre.
+material seam metal #3c3e46 rough=0.35
+material socket plastic #1c1c22 rough=0.6
+material light glow #ffd23c bright=25
+
+ring seam r=50 thick=6
+ring seam r=50 thick=6 rot=0,0,90
+ring seam r=50 thick=6 rot=90,0,0
+
+sphere socket r=11 at=26.5,26.5,26.5
+sphere socket r=11 at=-26.5,26.5,26.5
+sphere socket r=11 at=26.5,-26.5,26.5
+sphere socket r=11 at=-26.5,-26.5,26.5
+sphere socket r=11 at=26.5,26.5,-26.5
+sphere socket r=11 at=-26.5,26.5,-26.5
+sphere socket r=11 at=26.5,-26.5,-26.5
+sphere socket r=11 at=-26.5,-26.5,-26.5
+sphere light r=7 at=30.5,30.5,30.5
+sphere light r=7 at=-30.5,30.5,30.5
+sphere light r=7 at=30.5,-30.5,30.5
+sphere light r=7 at=-30.5,-30.5,30.5
+sphere light r=7 at=30.5,30.5,-30.5
+sphere light r=7 at=-30.5,30.5,-30.5
+sphere light r=7 at=30.5,-30.5,-30.5
+sphere light r=7 at=-30.5,-30.5,-30.5

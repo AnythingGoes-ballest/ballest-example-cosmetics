@@ -1,0 +1,6 @@
+# The meatball's saw: a steel blade lying flat around the ball's middle, kept level while the ball rolls (travel),
+# spinning about the vertical. The ball is 50 from its centre.
+material steel plastic #cfd4dc rough=0.2
+
+group blade spin=z speed=900 travel
+saw steel r=74 teeth=28 depth=9 thick=2.5

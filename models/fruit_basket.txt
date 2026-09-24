@@ -1,0 +1,33 @@
+# A basket of fruit, standing on the hat slot (the top of the ball).
+material wicker plastic #b07838 rough=0.8
+material wickerdark plastic #6e4420 rough=0.8
+material apple plastic #d0201e rough=0.3
+material orange plastic #f28c14 rough=0.6
+material lime plastic #7cc832 rough=0.4
+material banana plastic #f4d23c rough=0.5
+material grape plastic #6a2a8c rough=0.25
+material stem plastic #4a2e14 rough=0.8
+material leaf plastic #3a9a2a rough=0.6
+
+# the basket: a shallow woven bowl with a thick rim and a handle arching over the fruit
+cup wicker r=15 top=21 h=10 wall=2 at=0,0,-3
+ring wickerdark r=16 thick=1.4 at=0,0,1
+ring wickerdark r=18.5 thick=1.4 at=0,0,5
+ring wickerdark r=21 thick=3 at=0,0,7
+ring wickerdark r=20 thick=2.4 degrees=180 at=0,0,7 rot=0,0,-90
+
+# the fruit, heaped above the rim
+sphere apple r=7.5 at=6,5,13
+cylinder stem r=0.7 h=4 at=6,5,20
+box leaf size=4,1,2 at=8,5,23 rot=0,0,30
+sphere orange r=7.5 at=-7,4,12.5
+sphere lime r=6.5 at=1,-8,12
+sphere apple r=6.5 at=-1,1,20
+capsule banana r=2.8 len=15 at=-11,-4,13 rot=55,20,0
+capsule banana r=2.8 len=14 at=-9,-7,12 rot=60,40,0
+sphere grape r=2.8 at=10,-6,13
+sphere grape r=2.8 at=12.5,-3,12.5
+sphere grape r=2.8 at=11,-3.5,17
+sphere grape r=2.8 at=8,-9,12
+sphere grape r=2.8 at=13,-8,11
+sphere grape r=2.8 at=14,-5.5,16
