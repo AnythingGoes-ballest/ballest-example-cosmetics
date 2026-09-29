@@ -1,0 +1,3 @@
+# A baseball cap: a 3D model file (cap.glb, "Baseball Cap" by Jarlan Perez, CC-BY 3.0), turned upright with its brim
+# forward (the file has it tilted and facing back), 36 cm across the brim, standing on the hat slot.
+mesh cap.glb size=36 rot=-10.7,-141.9,8.5

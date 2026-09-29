@@ -1,0 +1,5 @@
+# A skeleton running inside a clear ball: a 3D model file (skeleton.glb, KayKit by Kay Lousberg, CC0) with a texture,
+# glowing eyes and animations. It faces where the ball goes, runs faster as the ball speeds up, and idles while the
+# ball is still.
+group body travel
+mesh skeleton.glb size=80 at=0,0,-45 anim=running_a rate=0.6 run=0.1 idle=idle

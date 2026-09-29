@@ -1,0 +1,5 @@
+# A T-rex running inside a clear ball: a 3D model file (trex.glb, Quaternius, CC0) with its own colours and animations.
+# The travel group keeps it upright and facing where the ball goes; it runs faster as the ball speeds up, and idles
+# while the ball is still.
+group dino travel
+mesh trex.glb size=85 at=0,0,-44 anim=run rate=0.6 run=0.1 idle=idle
